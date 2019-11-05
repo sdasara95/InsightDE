@@ -1,6 +1,3 @@
-# InsightDE
- My solution to Insight's Data Engineering challenge
-
 # Insight Data Engineering coding challenge
 This GitHub repository contains my solution to the [coding challenge](https://github.com/InsightDataScience/border-crossing-analysis) for the [Insight Data Engineering Fellows Program](https://www.insightdataengineering.com/).
 
