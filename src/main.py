@@ -13,7 +13,7 @@ if __name__ == "__main__":
         raise Exception('Wrong command line arguments')
     input_file = sys.argv[1]
     output_file = sys.argv[2]
-    obj = solver()
+    obj = Solver()
     obj.read(input_file)
     obj.process()
     obj.write(output_file)
