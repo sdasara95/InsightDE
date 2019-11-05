@@ -101,10 +101,6 @@ class Solver:
                 data_dict.setdefault(border, {}).setdefault(measure, {}).setdefault(year, {})[month] = value
         
         self.data_dict = data_dict
-    
-    def get_unique(self,array):
-        array = list(set(array))
-        return array
         
     def get_all(self):
         all_borders = []
@@ -176,33 +172,56 @@ class Solver:
         self.cum_dict = m_dict        
         self.mavg_dict = final_dict
     
-    def write(self,output_path):
-        self.get_all()
-        borders = self.all_borders.copy()
-        borders = sorted(borders,reverse=1)
-        years = self.all_years.copy()
-        years = sorted(years,reverse=1)
-        measures = self.all_measures.copy()
-        months = self.all_months.copy()
-        months = sorted(months,reverse=1)
-        
+    def flip_dicts(self):        
         mavg = copy.deepcopy(self.mavg_dict)
         ddict = copy.deepcopy(self.data_dict)
+        
+        flipped_mavg = dict()
+        flipped_ddict = dict()
+        
+        for border,nest1 in ddict.items():
+            for measure,nest2 in nest1.items():
+                for year,nest3 in nest2.items():
+                    for month,value in nest3.items():
+                        try:
+                            flipped_ddict[year][month][value][measure]=border
+                        except:
+                            flipped_ddict.setdefault(year, {}).setdefault(month, {}).setdefault(value, {})[measure] = border
+                     
+                    for month,value in mavg[border][measure][year].items():
+                        try:
+                            flipped_mavg[year][month][value][measure]=border
+                        except:
+                            flipped_mavg.setdefault(year, {}).setdefault(month, {}).setdefault(value, {})[measure] = border    
+        
+        self.flipped_mavg_dict = flipped_mavg
+        self.flipped_data_dict = flipped_ddict
+    
+    def write(self,output_path='../output/report.csv'):
+        
+        mavg = copy.deepcopy(self.mavg_dict)
+        ddict = copy.deepcopy(self.flipped_data_dict)
         
         with open(output_path,'w',newline='\n') as csvfile:
             fieldnames = ['Border','Date','Measure','Value','Average']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             
+            years = list(ddict.keys())
+            years = sorted(years,reverse=1)
             for year in years:
+                months = list(ddict[year].keys())
+                months = sorted(months,reverse=1)
                 for month in months:
-                    for border in borders:
+                    vals = list(ddict[year][month].keys())
+                    vals = sorted(vals,reverse=1)
+                    for value in vals:
+                        measures = list(ddict[year][month][value].keys())
+                        measures = sorted(measures,reverse=1)
                         for measure in measures:
-                            try:
-                                val = ddict[border][measure][year][month]
-                                avg = mavg[border][measure][year][month]
-                            except KeyError:
-                                continue
+                            border = ddict[year][month][value][measure]
+                            val = value
+                            avg = mavg[border][measure][year][month]
                             val= int(val)
                             avg = int(avg)
                             date_obj = dt.datetime(year, month, 1, hour=12, minute=0, second=0, microsecond=0)
@@ -213,33 +232,7 @@ class Solver:
                     
         csvfile.close()
         print('Written Successfully!')
-            
-
-#sum2 =0
-#for year in d1['US-Canada Border']['Trains']:
-#    for month in d1['US-Canada Border']['Trains'][year]:
-#        sum2+=d1['US-Canada Border']['Trains'][year][month]
-#print(sum1==sum2)
-
-
-''' 
-Just Sanity Check Code
-US-Canada Border,03/01/2019 12:00:00 AM,Truck Containers Full,6483,0
-
-obj = Solver()
-obj.read()
-obj.process()
-obj.solve()
-
-d1 = obj.data_dict        
-sum1 = 0
-for i in d1:
-    for j in d1[i]:
-        for k in d1[i][j]:
-            for l in d1[i][j][k]:
-                sum1+=d1[i][j][k][l]
-print(sum1)
-'''            
+        
         
     
 
