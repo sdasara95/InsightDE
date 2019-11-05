@@ -188,17 +188,10 @@ class Solver:
                         except:
                             flipped_ddict.setdefault(year, {}).setdefault(month, {}).setdefault(value, {})[measure] = border
                      
-                    for month,value in mavg[border][measure][year].items():
-                        try:
-                            flipped_mavg[year][month][value][measure]=border
-                        except:
-                            flipped_mavg.setdefault(year, {}).setdefault(month, {}).setdefault(value, {})[measure] = border    
-        
-        self.flipped_mavg_dict = flipped_mavg
         self.flipped_data_dict = flipped_ddict
     
     def write(self,output_path='../output/report.csv'):
-        
+        self.flip_dicts()
         mavg = copy.deepcopy(self.mavg_dict)
         ddict = copy.deepcopy(self.flipped_data_dict)
         
