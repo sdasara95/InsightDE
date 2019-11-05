@@ -199,8 +199,8 @@ class Solver:
                                 avg = mavg[border][measure][year][month]
                             except KeyError:
                                 continue
-                            val= str(val)
-                            avg = str(avg)
+                            val= int(val)
+                            avg = int(avg)
                             date_obj = dt.datetime(year, month, 1, hour=12, minute=0, second=0, microsecond=0)
                             date = date_obj.strftime("%m/%d/%Y %H:%M:%S")
                             date += ' AM'
