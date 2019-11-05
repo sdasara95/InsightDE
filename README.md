@@ -16,7 +16,7 @@ Frontier,Washington,3020,US-Canada Border,02/01/2019 12:00:00 AM,Truck Container
 Presidio,Texas,2403,US-Mexico Border,02/01/2019 12:00:00 AM,Pedestrians,15272,POINT (-104.37167 29.56056)
 Eagle Pass,Texas,2303,US-Mexico Border,01/01/2019 12:00:00 AM,Pedestrians,56810,POINT (-100.49917 28.70889)
 ```
-For this challenge, we want to you to calculate the total number of times vehicles, equipment, passengers and pedestrians cross the U.S.-Canadian and U.S.-Mexican borders each month. We also want to know the running monthly average of total number of crossings for that type of crossing i.e. 'measure' and 'border'. For example, the output will be the following for the above file.
+For this challenge, we want to you to calculate the total number of times vehicles, equipment, passengers and pedestrians cross the U.S.-Canadian and U.S.-Mexican borders each month. We also want to know the running monthly average of total number of crossings for that type of crossing i.e. `measure` and `border`. For example, the output will be the following for the above file.
 ```
 Border,Date,Measure,Value,Average
 US-Mexico Border,03/01/2019 12:00:00 AM,Pedestrians,346158,114487
@@ -32,15 +32,15 @@ US-Mexico Border,01/01/2019 12:00:00 AM,Pedestrians,56810,0
 
 * The data structure is a nested hashmap using python dictionaries
 
-* Assuming O(1) for fetching values from the data structure and 'measure' and 'border' fields to be finite, the running time of the solution is O(N)
+* Assuming O(1) for fetching values from the data structure and `measure` and `border` fields to be finite, the running time of the solution is O(N)
 
-* The written rows have to sorted in the descending order in the field order: 'Date' 'Value' 'Measure' 'Border'
+* The written rows have to sorted in the descending order in the field order: `Date` `Value` `Measure` `Border`
 
 ## Class Method Definition
 
 ### is_date:
 
-This method checks if the 'Date' value is of format '%m/%d/%Y %I:%M:%S %p'
+This method checks if the `Date` value is of format `%m/%d/%Y %I:%M:%S %p`
 
 Input: String
 
@@ -48,9 +48,9 @@ Output: True/False
 
 ### read:
 
-This method checks for 'Empty File', 'CSV file format' and 'Valid Path of File'.
-Date format is validated and if any field value is missing or '' that row is skipped.
-If there are no valid rows, then the method raises 'Empty Dataset' exception.
+This method checks for `Empty File`, `CSV file format` and `Valid Path of File`.
+Date format is validated and if any field value is `missing` or `''` that row is skipped.
+If there are no valid rows, then the method raises `Empty Dataset` exception.
 
 Input: Input file path of csv file, Columns of interested
 
@@ -58,16 +58,16 @@ Output: Dataset as a list of lists
 
 ### process:
 
-This method creates a nested dictionary with the following 'Key' heirarchy:
+This method creates a nested dictionary with the following `Key` heirarchy:
 * Border
 * Measure
 * Year
 * Month
 
-The value is 'Value' if the key is created for the first time.
-The value is '+=Value' if the key already exists.
+The value is `Value` if the key is created for the first time.
+The value is `+=Value` if the key already exists.
 
-Stored in 'self.data_dict'
+Stored in `self.data_dict`
 
 Input: Dataset as list of lists
 
@@ -87,11 +87,11 @@ Output: lists
 
 ### solve:
 
-This method calculates the 'monthly average' and 'cumulative' values uptil that month. 
+This method calculates the `monthly average` and `cumulative` values uptil that month. 
 Each month adds value from it's previous month.
 Hence, only a reference to preceeding month is required to calculate these values.
 The first month of the year uses the last month of previous year.
-The 'monthly average' and 'cumulative' values are stored in a nested dictionary with same key heirarchy as 'self.data_dict'.
+The `monthly average` and `cumulative` values are stored in a nested dictionary with same key heirarchy as `self.data_dict`.
 
 Input: Nested dictionary
 
@@ -99,7 +99,7 @@ Output: Nested dictionaries
 
 ### flip_dicts:
 
-This method flips the 'self.data_dict' to the following order:
+This method flips the `self.data_dict` to the following order:
 
 * Year 
 
@@ -109,7 +109,7 @@ This method flips the 'self.data_dict' to the following order:
 
 * Measure
 
-The value is 'Border'
+The value is `Border`
 
 Input: Nested dictionary
 
@@ -117,10 +117,10 @@ Output: Nested dictionary
 
 ### write:
 
-This method calls the method 'flip_dicts'.
-This method writes the rows to the file 'report.csv' or whichever output file path given.
+This method calls the method `flip_dicts`.
+This method writes the rows to the file `report.csv` or whichever output file path given.
 
-It traverses the flipped dictionary with the following fields in 'Descending Order':
+It traverses the flipped dictionary with the following fields in `Descending Order`:
 
 * Year
  
@@ -132,7 +132,7 @@ It traverses the flipped dictionary with the following fields in 'Descending Ord
 
 * Border
 
-and uses these values to get the 'Monthly Average' from 'self.mavg_dict' computed in 'solve' method.
+and uses these values to get the `monthly average` from `self.mavg_dict` computed in `solve` method.
 
 The output is written as a csv file.
 
