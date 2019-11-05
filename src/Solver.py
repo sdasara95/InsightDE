@@ -115,18 +115,22 @@ class Solver:
         d1 = self.data_dict
         
         for i in d1:
-            all_borders.append(i)
+            if i not in  all_borders:
+                all_borders.append(i)
             for j in d1[i]:
-                all_measures.append(j)
+                if j not in all_measures:
+                    all_measures.append(j)
                 for k in d1[i][j]:
-                    all_years.append(k)
+                    if k not in all_years:
+                        all_years.append(k)
                     for l in d1[i][j][k]:
-                        all_months.append(l)
+                        if l not in all_months:
+                            all_months.append(l)
                         
-        self.all_borders = self.get_unique(all_borders)
-        self.all_measures = self.get_unique(all_measures)
-        self.all_years = self.get_unique(all_years)
-        self.all_months = self.get_unique(all_months)
+        self.all_borders = all_borders
+        self.all_measures = all_measures
+        self.all_years = all_years
+        self.all_months = all_months
         
     def solve(self):
         m_dict = copy.deepcopy(self.data_dict)
