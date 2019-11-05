@@ -16,4 +16,5 @@ if __name__ == "__main__":
     obj = Solver()
     obj.read(input_file)
     obj.process()
+    obj.solve()
     obj.write(output_file)
