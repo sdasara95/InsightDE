@@ -19,17 +19,3 @@ if __name__ == "__main__":
     obj.solve()
     obj.write(output_file)
     
-    
-
-from Solver import *
-import sys
-
-for i in range(50):
-    obj = Solver()
-    obj.read()
-    obj.process()
-    obj.solve()
-    obj.get_all()
-    obj.flip_dicts()
-    obj.write(r'')
-    print(obj.all_borders)
