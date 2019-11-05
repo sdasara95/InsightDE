@@ -5,7 +5,7 @@ Created on Mon Nov  4 21:39:20 2019
 @author: Satya
 """
 
-import Solver.Solver as solver
+from Solver import *
 import sys
 
 if __name__ == "__main__":
