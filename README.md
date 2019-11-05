@@ -29,7 +29,7 @@ US-Mexico Border,01/01/2019 12:00:00 AM,Pedestrians,56810,0
 
 * The data structure is a nested hashmap using python dictionaries
 
-* Assuming O(1) for fetching values from the data structure and `measure` and `border` fields to be finite, the running time of the solution is O(N)
+* Assuming `O(1)` for fetching values from the data structure and `measure` and `border` fields to be finite, the running time of the solution is `O(N)`
 
 * The written rows have to sorted in the descending order in the field order: `Date` `Value` `Measure` `Border`
 
